@@ -108,15 +108,14 @@ namespace KataPotter
 		public decimal TotalPrice()
 		{
 			var numberOfDifferentBooks = Books.GroupBy(book => book.Title).Count();
-			var price = Books.Count * 8;
-			if (Books.Count < 2) return price;
-
 			var numberOfIdenticalBooks = Books.Count - numberOfDifferentBooks;
+
 			return numberOfIdenticalBooks * 8 + numberOfDifferentBooks * 8 * DiscountFor[numberOfDifferentBooks];
 		}
 
 		private Dictionary<int, decimal> DiscountFor { get; } = new Dictionary<int, decimal>
 		{
+			{ 0, 1 },
 			{ 1, 1 },
 			{ 2, 0.95m },
 			{ 3, 0.9m }
