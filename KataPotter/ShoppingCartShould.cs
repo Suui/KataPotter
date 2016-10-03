@@ -117,12 +117,18 @@ namespace KataPotter
 			{
 				var numberOfDifferentBooks = Books.GroupBy(book => book.Title).Count();
 				if (numberOfDifferentBooks == 1) return price;
-				if (numberOfDifferentBooks == 2) return (3-2) * 8 + 16 * 0.95m;
-				return (3-3) * 8 + 24 * 0.9m;
+				var numberOfIdenticalBooks = Books.Count - numberOfDifferentBooks;
+				return numberOfIdenticalBooks * 8 + numberOfDifferentBooks * 8 * DiscountFor[numberOfDifferentBooks];
 			}
 
 			return price;
 		}
+
+		private Dictionary<int, decimal> DiscountFor { get; } = new Dictionary<int, decimal>
+		{
+			{ 2, 0.95m },
+			{ 3, 0.9m }
+		};
 
 		public void Add(Book book) => Books.Add(book);
 	}
