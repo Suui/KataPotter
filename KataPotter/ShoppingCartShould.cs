@@ -115,7 +115,7 @@ namespace KataPotter
 
 		private Dictionary<int, decimal> DiscountFor { get; } = new Dictionary<int, decimal>
 		{
-			{ 0, 1 },
+			{ 0, 0 },
 			{ 1, 1 },
 			{ 2, 0.95m },
 			{ 3, 0.9m }
