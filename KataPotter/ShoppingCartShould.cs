@@ -38,6 +38,16 @@ namespace KataPotter
 
 			shoppingCart.TotalPrice().Should().Be(16 * 0.95m);
 		}
+
+		[Test]
+		public void have_no_discount_for_two_identical_books_of_the_series()
+		{
+			var shoppingCart = new ShoppingCart();
+			shoppingCart.Add(new Book("A Book"));
+			shoppingCart.Add(new Book("A Book"));
+
+			shoppingCart.TotalPrice().Should().Be(16);
+		}
 	}
 
 	public class ShoppingCart
@@ -47,7 +57,11 @@ namespace KataPotter
 		public decimal TotalPrice()
 		{
 			var price = Books.Count * 8;
-			if (Books.Count == 2) return price * 0.95m;
+			if (Books.Count == 2)
+			{
+				if (Books[0].Title.Equals(Books[1].Title)) return price;
+				return price * 0.95m;
+			}
 
 			return price;
 		}
@@ -60,9 +74,11 @@ namespace KataPotter
 
 	public class Book
 	{
+		public string Title { get; }
+
 		public Book(string title)
 		{
-			
+			Title = title;
 		}
 	}
 }
