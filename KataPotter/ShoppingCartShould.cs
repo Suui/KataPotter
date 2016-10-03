@@ -116,8 +116,8 @@ namespace KataPotter
 			if (Books.Count == 3)
 			{
 				var numberOfDifferentBooks = Books.GroupBy(book => book.Title).Count();
-				if (numberOfDifferentBooks == 2) return 8 + 16 * 0.95m;
-				if (Books[0].Title.Equals(Books[1].Title) && Books[1].Title.Equals(Books[2].Title)) return price;
+				if (numberOfDifferentBooks == 1) return price;
+				if (numberOfDifferentBooks == 2) return (3-2) * 8 + 16 * 0.95m;
 				return price * 0.9m;
 			}
 
