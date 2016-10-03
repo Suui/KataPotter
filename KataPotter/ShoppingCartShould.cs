@@ -8,6 +8,8 @@ namespace KataPotter
 	[TestFixture]
 	class ShoppingCartShould
 	{
+		private int BookPrice { get; } = 8;
+
 		[Test]
 		public void have_a_total_price_of_zero_when_it_is_empty()
 		{
@@ -19,7 +21,7 @@ namespace KataPotter
 		{
 			var shoppingCart = AShoppingCartWith(new Book("A Book"));
 
-			shoppingCart.TotalPrice().Should().Be(8);
+			shoppingCart.TotalPrice().Should().Be(BookPrice);
 		}
 
 		[Test]
@@ -31,7 +33,7 @@ namespace KataPotter
 				new Book("A Different Book")
 			});
 
-			shoppingCart.TotalPrice().Should().Be(16 * 0.95m);
+			shoppingCart.TotalPrice().Should().Be(BookPrice * 2 * 0.95m);
 		}
 
 		[Test]
@@ -43,7 +45,7 @@ namespace KataPotter
 				new Book("Same Book")
 			});
 
-			shoppingCart.TotalPrice().Should().Be(16);
+			shoppingCart.TotalPrice().Should().Be(BookPrice * 2);
 		}
 
 		[Test]
@@ -56,7 +58,7 @@ namespace KataPotter
 				new Book("Third Book")
 			});
 
-			shoppinCart.TotalPrice().Should().Be(24 * 0.9m);
+			shoppinCart.TotalPrice().Should().Be(BookPrice * 3 * 0.9m);
 		}
 
 		[Test]
@@ -69,7 +71,7 @@ namespace KataPotter
 				new Book("Same Book")
 			});
 
-			shoppingCart.TotalPrice().Should().Be(24);
+			shoppingCart.TotalPrice().Should().Be(BookPrice * 3);
 		}
 
 		[Test]
@@ -82,7 +84,7 @@ namespace KataPotter
 				new Book("Same Book")
 			});
 
-			shoppingCart.TotalPrice().Should().Be(8 + 16 * 0.95m);
+			shoppingCart.TotalPrice().Should().Be(BookPrice + BookPrice * 2 * 0.95m);
 		}
 
 		[Test]
@@ -96,7 +98,7 @@ namespace KataPotter
 				new Book("Fourth Book")
 			});
 
-			shoppingCart.TotalPrice().Should().Be(32 * 0.80m);
+			shoppingCart.TotalPrice().Should().Be(BookPrice * 4 * 0.80m);
 		}
 
 		[Test]
@@ -111,7 +113,7 @@ namespace KataPotter
 				new Book("Fifth Book")
 			});
 
-			shoppingCart.TotalPrice().Should().Be(40 * 0.75m);
+			shoppingCart.TotalPrice().Should().Be(BookPrice * 5 * 0.75m);
 		}
 
 		private static ShoppingCart AShoppingCartWith(List<Book> books)
