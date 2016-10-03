@@ -103,6 +103,21 @@ namespace KataPotter
 			shoppingCart.TotalPrice().Should().Be(32 * 0.80m);
 		}
 
+		[Test]
+		public void have_a_twenty_five_percent_discount_for_four_different_books_of_the_series()
+		{
+			var shoppingCart = AShoppingCartWith(new List<Book>
+			{
+				new Book("First Book"),
+				new Book("Second Book"),
+				new Book("Third Book"),
+				new Book("Fourth Book"),
+				new Book("Fifth Book")
+			});
+
+			shoppingCart.TotalPrice().Should().Be(40 * 0.75m);
+		}
+
 		private static ShoppingCart AShoppingCartWith(List<Book> books)
 		{
 			var shoppingCart = new ShoppingCart();
@@ -133,7 +148,8 @@ namespace KataPotter
 			{ 1, 1 },
 			{ 2, 0.95m },
 			{ 3, 0.9m },
-			{ 4, 0.8m }
+			{ 4, 0.8m },
+			{ 5, 0.75m }
 		};
 
 		public void Add(Book book) => Books.Add(book);
