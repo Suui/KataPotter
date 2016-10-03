@@ -76,6 +76,19 @@ namespace KataPotter
 			shoppingCart.TotalPrice().Should().Be(24);
 		}
 
+		[Test]
+		public void have_a_5_percent_discount_for_two_different_books_of_the_series_but_not_for_the_third_duplicated_one()
+		{
+			var shoppingCart = AShoppingCartWith(new List<Book>
+			{
+				new Book("Same Book"),
+				new Book("Different Book"),
+				new Book("Same Book")
+			});
+
+			shoppingCart.TotalPrice().Should().Be(8 + 16 * 0.95m);
+		}
+
 		private static ShoppingCart AShoppingCartWith(List<Book> books)
 		{
 			var shoppingCart = new ShoppingCart();
@@ -102,6 +115,8 @@ namespace KataPotter
 			}
 			if (Books.Count == 3)
 			{
+				var numberOfDifferentBooks = Books.GroupBy(book => book.Title).Count();
+				if (numberOfDifferentBooks == 2) return 8 + 16 * 0.95m;
 				if (Books[0].Title.Equals(Books[1].Title) && Books[1].Title.Equals(Books[2].Title)) return price;
 				return price * 0.9m;
 			}
