@@ -2,9 +2,6 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-/* TODO
-	
-*/
 
 namespace KataPotter
 {

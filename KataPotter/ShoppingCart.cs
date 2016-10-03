@@ -21,7 +21,7 @@ namespace KataPotter
 		{
 			const int bookPrice = 8;
 			return NumberOfIdenticalBooks() * bookPrice
-			       + NumberOfDifferentBooks() * bookPrice * DiscountFor[NumberOfDifferentBooks()];
+			     + NumberOfDifferentBooks() * bookPrice * DiscountFor[NumberOfDifferentBooks()];
 		}
 
 		private int NumberOfIdenticalBooks() => Books.Count - NumberOfDifferentBooks();
