@@ -133,7 +133,6 @@ namespace KataPotter
 	public class ShoppingCart
 	{
 		private List<Book> Books { get; } = new List<Book>();
-
 		private Dictionary<int, decimal> DiscountFor { get; } = new Dictionary<int, decimal>
 		{
 			{ 0, 0 },
@@ -146,18 +145,14 @@ namespace KataPotter
 
 		public decimal TotalPrice()
 		{
-			return NumberOfIdenticalBooks() * 8 + NumberOfDifferentBooks() * 8 * DiscountFor[NumberOfDifferentBooks()];
+			const int bookPrice = 8;
+			return NumberOfIdenticalBooks() * bookPrice
+				 + NumberOfDifferentBooks() * bookPrice * DiscountFor[NumberOfDifferentBooks()];
 		}
 
-		private int NumberOfIdenticalBooks()
-		{
-			return Books.Count - NumberOfDifferentBooks();
-		}
+		private int NumberOfIdenticalBooks() => Books.Count - NumberOfDifferentBooks();
 
-		private int NumberOfDifferentBooks()
-		{
-			return Books.GroupBy(book => book.Title).Count();
-		}
+		private int NumberOfDifferentBooks() => Books.GroupBy(book => book.Title).Count();
 
 		public void Add(Book book) => Books.Add(book);
 	}
