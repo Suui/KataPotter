@@ -15,7 +15,7 @@ namespace KataPotter
 		{
 			var shoppingCart = new ShoppingCart();
 
-			shoppingCart.TotalPrice().Should().Be(1);
+			shoppingCart.TotalPrice().Should().Be(0);
 		}
 	}
 
@@ -23,7 +23,7 @@ namespace KataPotter
 	{
 		public decimal TotalPrice()
 		{
-			return 1;
+			return 0;
 		}
 	}
 }
