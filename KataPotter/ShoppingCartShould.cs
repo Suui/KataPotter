@@ -15,16 +15,13 @@ namespace KataPotter
 		[Test]
 		public void have_a_total_price_of_zero_when_it_is_empty()
 		{
-			var shoppingCart = new ShoppingCart();
-
-			shoppingCart.TotalPrice().Should().Be(0);
+			AnEmptyShoppingCart().TotalPrice().Should().Be(0);
 		}
 
 		[Test]
 		public void have_a_price_of_eight_for_a_single_book()
 		{
-			var shoppingCart = new ShoppingCart();
-			shoppingCart.Add(new Book("A book"));
+			var shoppingCart = AShoppingCartWith(new Book("A Book"));
 
 			shoppingCart.TotalPrice().Should().Be(8);
 		}
@@ -32,9 +29,11 @@ namespace KataPotter
 		[Test]
 		public void have_a_five_percent_discount_for_two_different_books_of_the_series()
 		{
-			var shoppingCart = new ShoppingCart();
-			shoppingCart.Add(new Book("A Book"));
-			shoppingCart.Add(new Book("A Different Book"));
+			var shoppingCart = AShoppingCartWith(new List<Book>
+			{
+				new Book("A Book"),
+				new Book("A Different Book")
+			});
 
 			shoppingCart.TotalPrice().Should().Be(16 * 0.95m);
 		}
@@ -42,12 +41,25 @@ namespace KataPotter
 		[Test]
 		public void have_no_discount_for_two_identical_books_of_the_series()
 		{
-			var shoppingCart = new ShoppingCart();
-			shoppingCart.Add(new Book("A Book"));
-			shoppingCart.Add(new Book("A Book"));
+			var shoppingCart = AShoppingCartWith(new List<Book>
+			{
+				new Book("Same Book"),
+				new Book("Same Book")
+			});
 
 			shoppingCart.TotalPrice().Should().Be(16);
 		}
+
+		private static ShoppingCart AShoppingCartWith(List<Book> books)
+		{
+			var shoppingCart = new ShoppingCart();
+			books.ForEach(book => shoppingCart.Add(book));
+			return shoppingCart;
+		}
+
+		private ShoppingCart AnEmptyShoppingCart() => new ShoppingCart();
+
+		private static ShoppingCart AShoppingCartWith(Book book) => AShoppingCartWith(new List<Book> { book });
 	}
 
 	public class ShoppingCart
@@ -66,10 +78,7 @@ namespace KataPotter
 			return price;
 		}
 
-		public void Add(Book book)
-		{
-			Books.Add(book);
-		}
+		public void Add(Book book) => Books.Add(book);
 	}
 
 	public class Book
